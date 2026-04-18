@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -18,6 +19,13 @@ namespace TheGame
 
         [Inject]
         private IStorage<GameObject> _boxStorage;//src
+
+        private void Awake()
+        {
+            _FlyUpFunc = Vector3.Lerp;//allocs
+            _SwingBackFunc = SwingBackFunc;
+            _ToCenterFunc = ToCenterFunc;
+        }
 
         public async void Merge()//from UI
         {
@@ -94,9 +102,11 @@ namespace TheGame
         [SerializeField] private int _flyUpMs = 1000;
         [SerializeField] private float _flyUpHeight = 5f;
 
+        private Func<Vector3, Vector3, float, Vector3> _FlyUpFunc;
+
         private UniTask FlyUp<T>(T[] boxes) where T : Component
             => _animator.Wrappee.AnimateGroup(boxes, _flyUpMs,
-                boxPos => boxPos + Vector3.up * _flyUpHeight, Vector3.Lerp);
+                boxPos => boxPos + Vector3.up * _flyUpHeight, _FlyUpFunc);
 
         #endregion
 
@@ -105,6 +115,8 @@ namespace TheGame
         [SerializeField] private int _swingBackMs = 500;
         [SerializeField] private float _swingBackDist = .5f;
         [SerializeField] private AnimationCurve _swingBackFunc;
+
+        private Func<Vector3, Vector3, float, Vector3> _SwingBackFunc;
 
         private Vector3 SwingBackFunc(Vector3 a, Vector3 b, float t)
         {
@@ -117,7 +129,7 @@ namespace TheGame
             {
                 var offset = (boxPos - center).normalized * _swingBackDist;
                 return boxPos + offset;
-            }, SwingBackFunc);
+            }, _SwingBackFunc);
 
         #endregion
 
@@ -126,6 +138,8 @@ namespace TheGame
         [SerializeField] private int _toCenterMs = 500;
         [SerializeField] private AnimationCurve _toCenterFunc;
 
+        private Func<Vector3, Vector3, float, Vector3> _ToCenterFunc;
+
         private Vector3 ToCenterFunc(Vector3 a, Vector3 b, float t)
         {
             t = _toCenterFunc.Evaluate(t);//non linear
@@ -133,7 +147,7 @@ namespace TheGame
         }
 
         private UniTask FlyToCenter<T>(T[] boxes, Vector3 center) where T : Component
-            => _animator.Wrappee.AnimateGroup(boxes, _toCenterMs, boxPos => center, ToCenterFunc);
+            => _animator.Wrappee.AnimateGroup(boxes, _toCenterMs, boxPos => center, _ToCenterFunc);
 
         #endregion
     }

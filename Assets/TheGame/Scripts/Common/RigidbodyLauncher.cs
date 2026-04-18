@@ -9,7 +9,8 @@ namespace TheGame.Common
 
         public void Launch(Rigidbody rigidbody)
         {
-            var imp = Vector3.forward * _impulse;
+            var dir = _dir.forward;
+            var imp = dir * _impulse;
             rigidbody.AddForce(imp, ForceMode.Impulse);
         }
     }

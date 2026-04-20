@@ -1,9 +1,19 @@
 using UnityEngine;
+using TheGame.Common;
+using TheGame.Interfaces;
 
-namespace TheGame.Storages
+namespace TheGame.Storages.Pools
 {
-    internal class PoolGOStorage : QueuePoolMono<GameObject>
+    internal class PoolGOStorage : PoolMono<GameObject>
     {
+        [SerializeField] protected Wrap<IStorage<GameObject>> _simplerStorage;
+
+        private void Awake()
+        {
+            //_pool = new PoolWithActives<Entity>(_preWarm, Factrory);
+            _pool = new QueuePool<GameObject>(_preWarm, Factrory);
+        }
+
         protected override GameObject Factrory()
         {
             var newItem = _simplerStorage.Wrappee.Request();

@@ -1,5 +1,6 @@
 using UnityEngine;
 using TheGame.Interfaces;
+using Zenject;
 
 namespace TheGame.Storages
 {
@@ -7,6 +8,7 @@ namespace TheGame.Storages
     {
         [SerializeField] protected int _preWarm;
 
+        //[Inject(Id = "Pool")]
         protected IStorage<TItem> _pool;
 
         protected abstract TItem Factrory();

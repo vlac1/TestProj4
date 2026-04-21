@@ -1,4 +1,4 @@
-using System;
+using System.Linq;//evil
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -9,8 +9,9 @@ using TheGame.Common;
 
 namespace TheGame
 {
-    internal class AutoMerger : MonoBehaviour
+    internal class AutoMerger : MonoBehaviour//TweensPlayer
     {
+        [SerializeField] private Wrap<ITween> _tween;
         [SerializeField] private ParticleSystem _particles;
         [SerializeField] private Wrap<IAnimator> _animator;
         [SerializeField] private Button _mergeButton;
@@ -19,13 +20,6 @@ namespace TheGame
 
         [Inject]
         private IStorage<GameObject> _boxStorage;//src
-
-        private void Awake()
-        {
-            _FlyUpFunc = Vector3.Lerp;//allocs
-            _SwingBackFunc = SwingBackFunc;
-            _ToCenterFunc = ToCenterFunc;
-        }
 
         public async void Merge()//from UI
         {
@@ -54,101 +48,25 @@ namespace TheGame
             mergedAllBox.transform.position = center;
         }
 
-        private void GetGroupInfo(Merger[] boxes, out int sumOfAll, out Vector3 center)
-        {
-            sumOfAll = 0;
-            center = Vector3.zero;
-            foreach (var box in boxes)
-            {
-                var boxT = box.transform;
-                var boxPos = boxT.position;
-                var upPos = boxPos + Vector3.up * _flyUpHeight;
-
-                sumOfAll += box.Score.Value;
-                center += upPos;
-            }
-            center /= boxes.Length;//aver
-        }
-
         private async UniTask<int> MergeAll()
         {
             // TODO or use pool active list
-            var boxes = FindObjectsByType<Merger>(FindObjectsSortMode.None);
-            GetGroupInfo(boxes, out var sumOfAll, out var center);
+            var boxes = FindObjectsByType<BoxEntity>(FindObjectsSortMode.None);
 
-            foreach(var box in boxes)
+            foreach (var box in boxes)
             {
-                var boxRig = box.GetComponent<Rigidbody>();
-                boxRig.isKinematic = true;
-                boxRig.detectCollisions = false;
+                box.Rigidbody.isKinematic = true;
+                box.Rigidbody.detectCollisions = false;
             }
 
-            // TODO tweens: FlyUp, SwingBack, FlyToCenter
-            //foreach(var tween in tweens)
-            //    await tween.Exec(boxes);
-            await FlyUp(boxes);
-            await SwingBack(boxes, center);
-            await FlyToCenter(boxes, center);
+            // tweens: FlyUp, SwingBack, FlyToCenter
+            await _tween.Wrappee.Execute(boxes);
 
+            var sumOfAll = boxes.Sum(E => E.Score.Value);//slow but small
+            var center = Utils.GroupCenter(boxes);
             ReturnAll(boxes);
-            await UniTask.Yield();//finish ReturnAll
-
             SpawnMerged(center, sumOfAll);
             return sumOfAll;
         }
-
-        #region Fly Up
-
-        [SerializeField] private int _flyUpMs = 1000;
-        [SerializeField] private float _flyUpHeight = 5f;
-
-        private Func<Vector3, Vector3, float, Vector3> _FlyUpFunc;
-
-        private UniTask FlyUp<T>(T[] boxes) where T : Component
-            => _animator.Wrappee.AnimateGroup(boxes, _flyUpMs,
-                boxPos => boxPos + Vector3.up * _flyUpHeight, _FlyUpFunc);
-
-        #endregion
-
-        #region Swing Back
-
-        [SerializeField] private int _swingBackMs = 500;
-        [SerializeField] private float _swingBackDist = .5f;
-        [SerializeField] private AnimationCurve _swingBackFunc;
-
-        private Func<Vector3, Vector3, float, Vector3> _SwingBackFunc;
-
-        private Vector3 SwingBackFunc(Vector3 a, Vector3 b, float t)
-        {
-            t = _swingBackFunc.Evaluate(t);//non linear
-            return Vector3.Lerp(a, b, t);
-        }
-
-        private UniTask SwingBack<T>(T[] boxes, Vector3 center) where T : Component
-            => _animator.Wrappee.AnimateGroup(boxes, _swingBackMs, boxPos =>
-            {
-                var offset = (boxPos - center).normalized * _swingBackDist;
-                return boxPos + offset;
-            }, _SwingBackFunc);
-
-        #endregion
-
-        #region Fly To Center
-
-        [SerializeField] private int _toCenterMs = 500;
-        [SerializeField] private AnimationCurve _toCenterFunc;
-
-        private Func<Vector3, Vector3, float, Vector3> _ToCenterFunc;
-
-        private Vector3 ToCenterFunc(Vector3 a, Vector3 b, float t)
-        {
-            t = _toCenterFunc.Evaluate(t);//non linear
-            return Vector3.Lerp(a, b, t);
-        }
-
-        private UniTask FlyToCenter<T>(T[] boxes, Vector3 center) where T : Component
-            => _animator.Wrappee.AnimateGroup(boxes, _toCenterMs, boxPos => center, _ToCenterFunc);
-
-        #endregion
     }
 }

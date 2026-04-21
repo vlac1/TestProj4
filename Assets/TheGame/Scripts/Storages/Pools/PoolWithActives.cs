@@ -45,10 +45,9 @@ namespace TheGame.Storages.Pools
 
         public IEnumerable<TItem> Actives()
         {
-            while (PoolPos > 0)
+            for (var i = 0; i < PoolPos; i++)
             {
-                var lastActive = _items[--PoolPos];
-                yield return lastActive;
+                yield return _items[i];
             }
         }
     }

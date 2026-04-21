@@ -10,13 +10,14 @@ namespace TheGame.Storages.Pools
 
         private void Awake()
         {
-            //_pool = new PoolWithActives<Entity>(_preWarm, Factrory);
+            //_pool = new PoolWithActives<BoxEntity>(_preWarm, Factrory);
             _pool = new QueuePool<GameObject>(_preWarm, Factrory);
         }
 
         protected override GameObject Factrory()
         {
             var newItem = _simplerStorage.Wrappee.Request();
+            //newItem.GetComponent<BoxEntity>();
             newItem.SetActive(false);
             return newItem;
         }

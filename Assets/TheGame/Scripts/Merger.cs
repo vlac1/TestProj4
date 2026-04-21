@@ -5,7 +5,7 @@ using TheGame.Common;
 
 namespace TheGame
 {
-    internal class Merger : MonoBehaviour// kinda E (ECS)
+    internal class Merger : MonoBehaviour
     {
         [SerializeField] private float _minImpulse = 1;
         [SerializeField] private Wrap<IValue<int>> _boxVal;

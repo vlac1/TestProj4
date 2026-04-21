@@ -5,19 +5,18 @@ using TheGame.Interfaces;
 using Cysharp.Threading.Tasks;
 
 using Unity.Jobs;
+using Unity.Mathematics;
 using Unity.Collections;
 using UnityEngine.Jobs;
 
-namespace TheGame.Common
+namespace TheGame.Common.Animators
 {
-    using LerpFunc = Func<Vector3, Vector3, float, Vector3>;
-
-    public class JobsAnimator : MonoBehaviour, IAnimator
+    internal class JobsAnimator : MonoBehaviour, IAnimator
     {
         [SerializeField] private int _maxItems = 200;
 
-        private NativeArray<Vector3> _starts;
-        private NativeArray<Vector3> _targets;
+        private NativeArray<float3> _starts;
+        private NativeArray<float3> _targets;
         private TransformAccessArray _transforms;
 
         #region unity
@@ -39,11 +38,11 @@ namespace TheGame.Common
         }
         #endregion
 
-        public async UniTask AnimateGroup<T>(T[] items, int ms, Func<Vector3, Vector3> computeTarget, LerpFunc func)
+        public async UniTask AnimateGroup<T,L>(T[] items, int ms, Func<Vector3, Vector3> computeTarget, L func)
+            where L : unmanaged, ITransition
             where T : Component
         {
-            //clear
-            while (_transforms.length > 0)
+            while (_transforms.length > 0)// clear old
                 _transforms.RemoveAtSwapBack(0);
 
             for (int i = 0; i < items.Length; i++)
@@ -58,13 +57,12 @@ namespace TheGame.Common
                 _targets[i] = targetPos;
             }
 
-            //TODO func, anim "flat"
-            PositionUpdateJob<Func01> _positionUpdateJob = new ()
+            PositionUpdateJob<L> _positionUpdateJob = new ()
             {
-                Factor = 0,
                 Starts = _starts,
                 Targets = _targets,
-                //_func = func
+                Factor = 0,
+                Transition = func
             };
 
             var duration = ms / 1000f;
@@ -80,44 +78,6 @@ namespace TheGame.Common
                 //jobHandle.Complete();
             }
             //_transforms.Dispose();
-        }
-    }
-
-    interface IFuncWrap
-    {
-        public Vector3 Lerp(Vector3 a, Vector3 b, float factor);
-    }
-
-    struct Func01 : IFuncWrap
-    {
-        public Vector3 Lerp(Vector3 a, Vector3 b, float factor)
-            => Vector3.Lerp(a, b, factor);
-    }
-
-    /*
-    struct Func02 : IFuncWrap
-    {
-        //[SerializeField] private AnimationCurveCustom _curve;
-
-        public Vector3 Lerp(Vector3 a, Vector3 b, float factor)
-            => Vector3.Lerp(a, b, factor);
-    }//*/
-
-    internal struct PositionUpdateJob<T> : IJobParallelForTransform
-        where T : unmanaged, IFuncWrap
-    {
-        [NativeDisableParallelForRestriction] [ReadOnly] public NativeArray<Vector3> Starts;
-        [NativeDisableParallelForRestriction] [ReadOnly] public NativeArray<Vector3> Targets;
-
-        public T _func;
-        public float Factor;
-
-        public void Execute(int index, TransformAccess transform)
-        {
-            var start = Starts[index];
-            var target = Targets[index];
-            var t = Mathf.Clamp01(Factor);
-            transform.position = _func.Lerp(start, target, t);
         }
     }
 }

@@ -3,6 +3,7 @@ using UnityEngine;
 using Cysharp.Threading.Tasks;
 using TheGame.Interfaces;
 using TheGame.Common;
+using TheGame.Common.Animators;
 
 namespace TheGame.Tweens
 {
@@ -10,27 +11,21 @@ namespace TheGame.Tweens
     {
         [SerializeField] private Wrap<IAnimator> _animator;
         [SerializeField] private int _executeTimeMs = 500;
-        [SerializeField] private AnimationCurve _lerpFunc;
+        [SerializeField] private AnimationCurve _lerpFunc;//transition
 
-        private Func<Vector3, Vector3, float, Vector3> _LerpFunc;
         private Func<Vector3, Vector3> _ComputeTargetFunc;
+        private AnimationCurveTransition _transition;
 
         private void Awake()
         {
-            _LerpFunc = LerpFunc;//allocs
-            _ComputeTargetFunc = ComputeTarget;
-        }
-
-        protected virtual Vector3 LerpFunc(Vector3 a, Vector3 b, float t)
-        {
-            t = _lerpFunc.Evaluate(t);//non linear
-            return Vector3.Lerp(a, b, t);
+            _ComputeTargetFunc = ComputeTarget;//alloc
+            _transition = new(new(_lerpFunc));
         }
 
         protected virtual Vector3 ComputeTarget(Vector3 currentPos)
             => currentPos;
 
-        public virtual UniTask Execute<T>(T[] boxes) where T : Component
-            => _animator.Wrappee.AnimateGroup(boxes, _executeTimeMs, _ComputeTargetFunc, _LerpFunc);
+        public virtual UniTask Execute<T>(T[] group) where T : Component
+            => _animator.Wrappee.AnimateGroup(group, _executeTimeMs, _ComputeTargetFunc, _transition);
     }
 }

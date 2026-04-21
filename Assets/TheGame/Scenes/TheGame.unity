@@ -373,7 +373,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animator:
-    _wrappee: {fileID: 1403826457}
+    _wrappee: {fileID: 2081879426}
   _executeTimeMs: 500
   _lerpFunc:
     serializedVersion: 2
@@ -421,7 +421,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animator:
-    _wrappee: {fileID: 1403826457}
+    _wrappee: {fileID: 2081879426}
   _executeTimeMs: 500
   _lerpFunc:
     serializedVersion: 2
@@ -470,7 +470,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animator:
-    _wrappee: {fileID: 1403826457}
+    _wrappee: {fileID: 2081879426}
   _executeTimeMs: 1000
   _lerpFunc:
     serializedVersion: 2
@@ -1568,10 +1568,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _tween:
     _wrappee: {fileID: 176313558}
-  _tweens:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   _particles: {fileID: 1091804993}
   _animator:
     _wrappee: {fileID: 1403826457}
@@ -7770,7 +7766,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2081879425
 Transform:
   m_ObjectHideFlags: 0

@@ -4,15 +4,14 @@ using UnityEngine;
 using Cysharp.Threading.Tasks;
 using TheGame.Interfaces;
 
-namespace TheGame.Common
+namespace TheGame.Common.Animators
 {
-    using LerpFunc = Func<Vector3, Vector3, float, Vector3>;
-
     internal class SimpleAnimator : MonoBehaviour, IAnimator
     {
         readonly List<UniTask> running = new(200);
 
-        public async UniTask AnimateGroup<T>(T[] items, int ms, Func<Vector3, Vector3> computeTarget, LerpFunc func)
+        public async UniTask AnimateGroup<T,L>(T[] items, int ms, Func<Vector3, Vector3> computeTarget, L func)
+            where L : unmanaged, ITransition
             where T : Component
         {
             running.Clear();
@@ -34,7 +33,8 @@ namespace TheGame.Common
             await UniTask.Yield();
         }
 
-        public static async UniTask AnimateToTargetAsync(Transform item, Vector3 targetPos, float duration, Func<Vector3, Vector3, float, Vector3> func)
+        public static async UniTask AnimateToTargetAsync<L>(Transform item, Vector3 targetPos, float duration, L func)
+            where L : unmanaged, ITransition
         {
             var startPos = item.position;
 
@@ -43,7 +43,7 @@ namespace TheGame.Common
             {
                 elapsedTime += Time.deltaTime;
                 float t = Mathf.Clamp01(elapsedTime / duration);
-                var pos = func(startPos, targetPos, t);
+                var pos = func.Transition(startPos, targetPos, t);
                 item.position = pos;
                 await UniTask.Yield();
             }

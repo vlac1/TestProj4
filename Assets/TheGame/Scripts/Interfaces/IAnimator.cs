@@ -8,7 +8,12 @@ namespace TheGame.Interfaces
 
     internal interface IAnimator
     {
-        UniTask AnimateGroup<T>(T[] items, int ms, Func<Vector3, Vector3> computeTarget, LerpFunc func)
-            where T : Component;
+        //UniTask AnimateGroup<T>(T[] items, int ms, Func<Vector3, Vector3> computeTarget, LerpFunc func)
+        //    where T : Component;
+        //*
+        UniTask AnimateGroup<T,L>(T[] group, int timeMs, Func<Vector3, Vector3> computeTarget, L func)
+            where T : Component
+            where L : unmanaged, ITransition;
+        //*/
     }
 }

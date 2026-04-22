@@ -18,6 +18,15 @@ namespace TheGame.Common.Memory
         {
             _mem = default;
             _count = count;
+
+            var Msize = _mem.Size;
+            var Vsize = Marshal.SizeOf<V>();
+            var canFitCount = Msize / Vsize;
+            //var canFit = Msize % Vsize == 0;// with no space wasted
+            if (count <= canFitCount) return;
+
+            var msg = string.Format("Mem Size {0} cant fit all Views of size {1} and count {2}", Msize, Vsize, _count);
+            throw new Exception(msg);
         }
 
         public V this[int index]

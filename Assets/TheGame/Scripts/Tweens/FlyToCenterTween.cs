@@ -6,6 +6,8 @@ namespace TheGame.Tweens
 {
     public class FlyToCenterTween : BaseTween
     {
+        [SerializeField] private float _planeHeight = 3f;
+        
         private Vector3 _groupCenter;
 
         protected override Vector3 ComputeTarget(Vector3 currentPos)
@@ -14,6 +16,7 @@ namespace TheGame.Tweens
         public override UniTask Execute<T>(T[] objects)
         {
             _groupCenter = Utils.GroupCenter(objects);
+            _groupCenter.y = _planeHeight;
             return base.Execute(objects);
         }
     }

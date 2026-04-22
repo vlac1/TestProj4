@@ -375,39 +375,40 @@ MonoBehaviour:
   _animator:
     _wrappee: {fileID: 2081879426}
   _executeTimeMs: 500
-  _lerpFunc:
+  _curve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
+      inSlope: 1.2553976
+      outSlope: 1.2553976
+      tangentMode: 34
       weightedMode: 0
       inWeight: 0
-      outWeight: 0
+      outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.83270997
-      value: 0.3902878
-      inSlope: 1.3484855
-      outSlope: 1.3484855
+      time: 0.75643116
+      value: 0.94962186
+      inSlope: 0.3034874
+      outSlope: 0.3034874
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
+      inWeight: 0.06505137
+      outWeight: 0.18753321
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 2
-      outSlope: 2
-      tangentMode: 0
+      inSlope: 0.20683329
+      outSlope: 0.20683329
+      tangentMode: 34
       weightedMode: 0
-      inWeight: 0
+      inWeight: 0.33333334
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  _planeHeight: 3
 --- !u!114 &176313556
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -423,40 +424,41 @@ MonoBehaviour:
   _animator:
     _wrappee: {fileID: 2081879426}
   _executeTimeMs: 500
-  _lerpFunc:
+  _curve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 2
-      outSlope: 2
-      tangentMode: 0
+      inSlope: 1.2767187
+      outSlope: 1.2767187
+      tangentMode: 34
       weightedMode: 0
       inWeight: 0
-      outWeight: 0
+      outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.6759333
-      value: 0.9336471
-      inSlope: 0.5420937
-      outSlope: 0.5420937
+      time: 0.7308045
+      value: 0.9330318
+      inSlope: 0.5328018
+      outSlope: 0.5328018
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
-      outWeight: 0.14874174
+      outWeight: 0.1635098
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
+      inSlope: 0.24877162
+      outSlope: 0.24877162
+      tangentMode: 34
       weightedMode: 0
-      inWeight: 0
+      inWeight: 0.33333334
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
   _swingBackDist: 0.8
+  _planeHeight: 3
 --- !u!114 &176313557
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -472,24 +474,24 @@ MonoBehaviour:
   _animator:
     _wrappee: {fileID: 2081879426}
   _executeTimeMs: 1000
-  _lerpFunc:
+  _curve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 34
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
       weightedMode: 0
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 34
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
       weightedMode: 0
       inWeight: 0
       outWeight: 0

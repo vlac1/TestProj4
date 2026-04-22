@@ -1,17 +1,17 @@
-using System;
 using System.Runtime.InteropServices;
 using UnityEngine;
-using TheGame.Interfaces;
+
 using TheGame.Common.Memory;
+using TheGame.Interfaces;
 
 namespace TheGame.Common.Animators
 {
     [StructLayout(LayoutKind.Sequential)]
-    public struct AnimationCurveCustom//<M>
-        //where M : IMem
+    public struct AnimationCurveCustom<M> : IEvaluate
+        where M : unmanaged, IMem
     {
-        //Keyframe 32byte
-        private readonly MemView<Keyframe, Mem128> _view;//M
+        // unity Keyframe 32bytes, Keyframe2B 12bytes
+        private readonly MemView<Keyframe2B, M> _view;
 
         public AnimationCurveCustom(AnimationCurve curve) : this(curve.keys)
         {
@@ -19,9 +19,6 @@ namespace TheGame.Common.Animators
 
         public AnimationCurveCustom(Keyframe[] keyframes)
         {
-            if (keyframes.Length > 4)
-                throw new Exception("Mem CANT store more Keyframes");
-
             _view = new(keyframes.Length);
             for (int i = 0; i < keyframes.Length; i++)
                 _view[i] = keyframes[i];
@@ -32,21 +29,21 @@ namespace TheGame.Common.Animators
             if (_view.Count < 2)
                 return 0f;
 
-            // find 2 frames in time
+            // find between 2 frames time is
             for (int i = 0; i < _view.Count - 1; i++)
             {
                 var frameThis = _view[i];
                 if (time < frameThis.time) continue;
 
                 var frameNext = _view[i + 1];
-                if (time > frameNext.time) continue;
+                if (time > frameNext.time) continue;//last
 
                 return TransitionVal(frameThis, frameNext, time);
             }
             return _view[^1].value;
         }
 
-        private static float TransitionVal(Keyframe start, Keyframe end, float time)
+        private static float TransitionVal(Keyframe2B start, Keyframe2B end, float time)
         {
             float length = end.time - start.time;
             //Mathf.Epsilon
@@ -55,10 +52,10 @@ namespace TheGame.Common.Animators
             float t = (time - start.time) / length;
 
             float startValue = start.value;
-            float startTangent = start.outTangent * start.outWeight;
+            float startTangent = start.Out.Tangent * start.Out.Weight;
             
             float endValue = end.value;
-            float endTangent = end.inTangent * end.inWeight;
+            float endTangent = end.In.Tangent * end.In.Weight;
 
             // Cubic Bezier
             return (1 - t) * (1 - t) * (1 - t) * startValue +
@@ -67,23 +64,6 @@ namespace TheGame.Common.Animators
                    t * t * t * endValue;
         }
     }
-
-    // TODO? can use less mem, 2byte float, fit more in Mem128
-    struct KeyframeS
-    {
-        public float time { get; set; }//Float2B
-        public float value { get; set; }
-
-        public ControlPoint In { get; set; }
-        public ControlPoint Out { get; set; }
-    }
-
-    struct ControlPoint
-    {
-        public float Tangent { get; set; }
-        public float Weight { get; set; }
-    }
-
 
     /*
     // if propagate Keyframes evenly, can find it like this

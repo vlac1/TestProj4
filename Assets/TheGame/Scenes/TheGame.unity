@@ -338,6 +338,7 @@ GameObject:
   - component: {fileID: 176313557}
   - component: {fileID: 176313556}
   - component: {fileID: 176313555}
+  - component: {fileID: 176313559}
   m_Layer: 0
   m_Name: tweens
   m_TagString: Untagged
@@ -381,29 +382,29 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 1.2553976
-      outSlope: 1.2553976
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.75643116
-      value: 0.94962186
-      inSlope: 0.3034874
-      outSlope: 0.3034874
+      inSlope: 0
+      outSlope: 0
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.06505137
-      outWeight: 0.18753321
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.7650422
+      value: 0.36131197
+      inSlope: 1.2539651
+      outSlope: 1.2539651
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 0.20683329
-      outSlope: 0.20683329
-      tangentMode: 34
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
+      inWeight: 0
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -515,6 +516,21 @@ MonoBehaviour:
   - _wrappee: {fileID: 176313557}
   - _wrappee: {fileID: 176313556}
   - _wrappee: {fileID: 176313555}
+  - _wrappee: {fileID: 176313559}
+--- !u!114 &176313559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 176313553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 802cb9dea2c1c834db0bb4c9781d992e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _planeHeight: 3
+  _particles: {fileID: 1091804993}
 --- !u!1 &229874945
 GameObject:
   m_ObjectHideFlags: 0
@@ -1570,9 +1586,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _tween:
     _wrappee: {fileID: 176313558}
-  _particles: {fileID: 1091804993}
-  _animator:
-    _wrappee: {fileID: 1403826457}
   _mergeButton: {fileID: 128043926}
   _beforeMerge:
     m_PersistentCalls:

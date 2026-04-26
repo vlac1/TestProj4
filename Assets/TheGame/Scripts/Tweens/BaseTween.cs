@@ -12,14 +12,14 @@ namespace TheGame.Tweens
 {
     public class BaseTween : MonoBehaviour, ITween
     {
-        [SerializeField] private Wrap<IAnimator> _animator;
+        [SerializeField] private Wrap<IAnimator> _animator;//or each can have its own
         [SerializeField] private int _executeTimeMs = 500;
         [SerializeField] private AnimationCurve _curve;
 
         //[Inject]
         //private IAnimator _animator;
         private Func<Vector3, Vector3> _ComputeTargetFunc;
-        private AnimationCurveTransition<AnimationCurveCustom<Mem64>> _transition;
+        private EvaluatorTransition<AnimationCurveCustom<Mem64>> _transition;
 
         private void Awake()
         {

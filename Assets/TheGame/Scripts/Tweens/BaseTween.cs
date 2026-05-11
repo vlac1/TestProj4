@@ -10,7 +10,7 @@ using TheGame.Common.Animators;
 
 namespace TheGame.Tweens
 {
-    public class BaseTween : MonoBehaviour, ITween
+    internal class BaseTween : MonoBehaviour, ITween
     {
         [SerializeField] private Wrap<IAnimator> _animator;//or each can have its own
         [SerializeField] private int _executeTimeMs = 500;
@@ -30,7 +30,7 @@ namespace TheGame.Tweens
         protected virtual Vector3 ComputeTarget(Vector3 currentPos)
             => currentPos;
 
-        public virtual UniTask Execute<T>(T[] group) where T : Component
+        public virtual UniTask Execute<T>(IArrayish<T> group) where T : Component
             => _animator.Wrappee.AnimateGroup(group, _executeTimeMs, _ComputeTargetFunc, _transition);
     }
 }

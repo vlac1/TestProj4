@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace TheGame.Tweens
 {
-    public class FlyUpTween : BaseTween
+    internal class FlyUpTween : BaseTween
     {
         [SerializeField] private float _flyUpHeight = 5f;
 

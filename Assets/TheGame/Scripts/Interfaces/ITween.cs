@@ -1,12 +1,10 @@
-using System.Collections.Generic;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
 
 namespace TheGame.Interfaces
 {
-    internal interface ITween//AsyncGroupProcessor
+    internal interface ITween//ren AsyncGroupProcessor
     {
-        //IEnumerable<T> items
-        UniTask Execute<T>(T[] items) where T : Component;
+        UniTask Execute<T>(IArrayish<T> group) where T : Component;
     }
 }

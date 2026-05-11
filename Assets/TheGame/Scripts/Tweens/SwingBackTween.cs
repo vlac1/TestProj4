@@ -1,10 +1,11 @@
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using TheGame.Common;
+using TheGame.Interfaces;
 
 namespace TheGame.Tweens
 {
-    public class SwingBackTween : BaseTween
+    internal class SwingBackTween : BaseTween
     {
         [SerializeField] private float _swingBackDist = .5f;//offset from origin
         [SerializeField] private float _planeHeight = 3f;
@@ -17,12 +18,12 @@ namespace TheGame.Tweens
             return currentPos + offset;
         }
 
-        public override UniTask Execute<T>(T[] objects)
+        public override UniTask Execute<T>(IArrayish<T> group)
         {
-            _groupCenter = Utils.GroupCenter(objects);
+            _groupCenter = Utils.GroupCenter(group);
             // on plane above (if box Falls out of map, center is below map (or clear box))
             _groupCenter.y = _planeHeight;
-            return base.Execute(objects);
+            return base.Execute(group);
         }
     }
 }

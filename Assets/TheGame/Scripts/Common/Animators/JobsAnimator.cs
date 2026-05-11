@@ -38,14 +38,14 @@ namespace TheGame.Common.Animators
         }
         #endregion
 
-        public async UniTask AnimateGroup<T,L>(T[] items, int ms, Func<Vector3, Vector3> computeTarget, L func)
+        public async UniTask AnimateGroup<T,L>(IArrayish<T> items, int ms, Func<Vector3, Vector3> computeTarget, L func)
             where L : unmanaged, ITransition
             where T : Component
         {
             while (_transforms.length > 0)// clear old
                 _transforms.RemoveAtSwapBack(0);
 
-            for (int i = 0; i < items.Length; i++)
+            for (int i = 0; i < items.Count; i++)
             {
                 var item = items[i];
                 var itemT = item.transform;

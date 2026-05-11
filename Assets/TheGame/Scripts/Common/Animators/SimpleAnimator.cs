@@ -10,16 +10,16 @@ namespace TheGame.Common.Animators
     {
         readonly List<UniTask> running = new(200);
 
-        public async UniTask AnimateGroup<T,L>(T[] items, int ms, Func<Vector3, Vector3> computeTarget, L func)
+        public async UniTask AnimateGroup<T,L>(IArrayish<T> group, int ms, Func<Vector3, Vector3> computeTarget, L func)
             where L : unmanaged, ITransition
             where T : Component
         {
             running.Clear();
             //UniTask[] running = new UniTask[boxes.Length];//alloc
-            foreach(var item in items)
-            //for (int i = 0; i < items.Length; i++)
+            //foreach(var item in items)
+            for (int i = 0; i < group.Count; i++)
             {
-                //var item = items[i];
+                var item = group[i];
                 var itemT = item.transform;
                 var boxPos = itemT.position;
                 var targetPos = computeTarget(boxPos);

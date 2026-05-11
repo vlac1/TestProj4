@@ -2,11 +2,12 @@ using UnityEngine;
 using UnityEngine.Events;
 using TheGame.Common;
 using TheGame.Interfaces;
+using Cysharp.Threading.Tasks;
 
 namespace TheGame
 {
     // TODO limited auto merge attempts
-    public class GameOver : MonoBehaviour
+    internal class GameOver : MonoBehaviour, ITween
     {
         [SerializeField] private int _minScore;
         [SerializeField] private int _maxScore;
@@ -29,6 +30,18 @@ namespace TheGame
                 _win.Invoke();
             if (score > _goalScore)
                 _lose.Invoke();
+        }
+
+        public UniTask Execute<T>(IArrayish<T> group) where T : Component
+        {
+            var boxes = (IArrayish<BoxEntity>)group;
+
+            var sumOfAll = 0;// boxes.Sum(E => E.Score.Value);//small but slow
+            for (var i = 0; i < boxes.Count; i++)
+                sumOfAll += boxes[i].Score.Value;
+
+            EvalScore(sumOfAll);
+            return UniTask.CompletedTask;
         }
     }
 }

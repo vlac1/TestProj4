@@ -1,4 +1,5 @@
 using UnityEngine;
+using TheGame.Interfaces;
 
 namespace TheGame.Common
 {
@@ -14,5 +15,18 @@ namespace TheGame.Common
             }
             return center / boxes.Length;//aver
         }
+
+        internal static Vector3 GroupCenter<T>(IArrayish<T> group)
+            where T : Component
+        {
+            var center = Vector3.zero;
+            for (var i = 0; i < group.Count; i++)
+            {
+                var box = group[i];
+                center += box.transform.position;
+            }
+            return center / group.Count;//aver
+        }
+
     }
 }

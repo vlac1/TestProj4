@@ -13,13 +13,10 @@ namespace TheGame
         public override void InstallBindings()
         {
             Container.Bind<IStorage<GameObject>>()
-                .To<IStorage<GameObject>>()
-                .FromInstance(_boxStorage.Wrappee)
-                .AsSingle();
+                .To<IStorage<GameObject>>().FromInstance(_boxStorage.Wrappee).AsSingle();
 
             Container.Bind<Merger>()
-            .FromComponentInNewPrefab(_boxPrefab)
-            .AsTransient();
+                .FromComponentInNewPrefab(_boxPrefab).AsTransient();
         }
     }
 }

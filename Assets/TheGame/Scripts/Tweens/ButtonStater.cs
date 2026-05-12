@@ -12,10 +12,10 @@ namespace TheGame
         [SerializeField] private Button _mergeButton;
         [SerializeField] private Wrap<ITween> _tween;
 
-        public async UniTask Execute<T>(IArrayish<T> group) where T : Component
+        public async UniTask Process<T>(IGroup<T> group) where T : Component
         {
             _mergeButton.interactable = _stateBefore;//No callbacks! huh
-            await _tween.Wrappee.Execute(group);
+            await _tween.Wrappee.Process(group);
             _mergeButton.interactable = !_stateBefore;
         }
     }

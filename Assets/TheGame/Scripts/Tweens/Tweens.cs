@@ -9,11 +9,11 @@ namespace TheGame.Tweens
     {
         [SerializeField] private Wrap<ITween>[] _tweens;
 
-        public async UniTask Execute<T>(IArrayish<T> group) where T : Component
+        public async UniTask Process<T>(IGroup<T> group) where T : Component
         {
             for (var i = 0; i < _tweens.Length; i++)
             {
-                await _tweens[i].Wrappee.Execute(group);
+                await _tweens[i].Wrappee.Process(group);
             }
         }
     }

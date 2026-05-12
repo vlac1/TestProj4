@@ -512,8 +512,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8127ea6c43bbf4e448bbda4a209f3478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _state:
-    _wrappee: {fileID: 0}
   _tweens:
   - _wrappee: {fileID: 1029850001}
   - _wrappee: {fileID: 176313557}
@@ -1137,7 +1135,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _boxStorage:
-    _wrappee: {fileID: 1576350302}
+    _wrappee: {fileID: 1576350303}
   _boxPrefab: {fileID: 9180907472906666973, guid: 5ecd2059815e5994e9dc74482452be76, type: 3}
 --- !u!114 &556148888
 MonoBehaviour:
@@ -1154,6 +1152,7 @@ MonoBehaviour:
   _scriptableObjectInstallers: []
   _monoInstallers:
   - {fileID: 556148887}
+  - {fileID: 1576350302}
   _installerPrefabs: []
   _autoRun: 1
   OnPreInstall:
@@ -1806,7 +1805,7 @@ GameObject:
   - component: {fileID: 937282721}
   - component: {fileID: 937282722}
   m_Layer: 0
-  m_Name: bofGroupReturn
+  m_Name: boxGroupReturn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1934,7 +1933,7 @@ GameObject:
   - component: {fileID: 1029850000}
   - component: {fileID: 1029850001}
   m_Layer: 0
-  m_Name: bofGroupSrc
+  m_Name: boxGroupSrc
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7196,7 +7195,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1220090993}
   m_Layer: 0
-  m_Name: bofGroupSrcPool
+  m_Name: boxGroupSrcPool
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7628,6 +7627,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1576350301}
+  - component: {fileID: 1576350303}
   - component: {fileID: 1576350302}
   m_Layer: 0
   m_Name: PoolBoxSrc
@@ -7666,6 +7666,19 @@ MonoBehaviour:
   _preWarm: 20
   _simplerStorage:
     _wrappee: {fileID: 1051704620}
+  _prefab: {fileID: 9180907472906666973, guid: 5ecd2059815e5994e9dc74482452be76, type: 3}
+--- !u!114 &1576350303
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1576350300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f1eb6f841b37e7409af5470aab23409, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1703142040
 GameObject:
   m_ObjectHideFlags: 0

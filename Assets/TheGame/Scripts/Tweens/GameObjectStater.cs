@@ -11,10 +11,10 @@ namespace TheGame
         [SerializeField] private GameObject _gameObject;
         [SerializeField] private Wrap<ITween> _tween;
 
-        public async UniTask Execute<T>(IArrayish<T> group) where T : Component
+        public async UniTask Process<T>(IGroup<T> group) where T : Component
         {
             _gameObject.SetActive(_stateBefore);
-            await _tween.Wrappee.Execute(group);
+            await _tween.Wrappee.Process(group);
             _gameObject.SetActive(!_stateBefore);
         }
     }

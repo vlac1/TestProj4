@@ -1,44 +1,39 @@
 using UnityEngine;
+using Zenject;
 using TheGame.Common;
 using TheGame.Interfaces;
 
 namespace TheGame.Storages.Pools
 {
-    internal class PoolGOStorage : PoolMono<GameObject>
+    internal class PoolGOStorage : MonoInstaller
     {
-        [SerializeField] protected Wrap<IStorage<GameObject>> _simplerStorage;
+        [SerializeField] private int _preWarm;
+        [SerializeField] private Wrap<IStorage<GameObject>> _simplerStorage;
+        [SerializeField] private GameObject _prefab;
 
-        private void Awake()
+        private QueuePool<GameObject> _pool;
+
+        public override void InstallBindings()
         {
-            //_pool = new PoolWithActives<BoxEntity>(_preWarm, Factrory);
-            _pool = new QueuePool<GameObject>(_preWarm, Factrory);
+            //todo exec sequence
+            _pool = new QueuePool<GameObject>(Factrory);//, _preWarm
+
+            Container.Bind<IStorage<GameObject>>()
+                .WithId("Pool").FromInstance(_pool).AsTransient();
         }
 
-        protected override GameObject Factrory()
+        private GameObject Factrory()
         {
-            var newItem = _simplerStorage.Wrappee.Request();
+            var newItem = Container.InstantiatePrefab(_prefab);
+            //var newItem = _simplerStorage.Wrappee.Request();
             //newItem.GetComponent<BoxEntity>();
             newItem.SetActive(false);
             return newItem;
         }
 
-        public override GameObject Request()
+        private void Awake()// after InstallBindings
         {
-            var item = base.Request();
-            item.SetActive(true);
-            return item;
-        }
-
-        public override void Return(GameObject item)
-        {
-            // reset item state
-            item.SetActive(false);
-            item.transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
-            var rig = item.GetComponent<Rigidbody>();
-            rig.velocity = Vector3.zero;
-            rig.isKinematic = false;
-            rig.detectCollisions = true;
-            base.Return(item);
+            _pool.Prewarm(_preWarm);
         }
     }
 }

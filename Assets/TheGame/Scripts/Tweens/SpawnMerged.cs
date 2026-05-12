@@ -15,7 +15,7 @@ namespace TheGame.Tweens
         [Inject]
         private IStorage<GameObject> _boxStorage;//src
 
-        public UniTask Execute<T>(IArrayish<T> group) where T: Component
+        public UniTask Process<T>(IGroup<T> group) where T: Component
         {
             var groupCenter = Utils.GroupCenter(group);
             groupCenter.y = _planeHeight;

@@ -8,11 +8,16 @@ namespace TheGame.Storages.Pools
     {
         private readonly Func<T> _factory; // factory 2x times faster
 
-        public QueuePool(int initialCapacity, Func<T> factory) : base(initialCapacity)
+        public QueuePool(Func<T> factory, int initialCapacity=0) : base(initialCapacity)
         {
             _factory = factory;
-            for (var i = 0; i < initialCapacity; i++)//Prefabricate
-                Enqueue(factory());
+            Prewarm(initialCapacity);
+        }
+
+        public void Prewarm(int countNew)//Prefabricate
+        {
+            for (var i = 0; i < countNew; i++)
+                Enqueue(_factory());
         }
 
         public virtual T Request()//Get

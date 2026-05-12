@@ -10,7 +10,7 @@ namespace TheGame.Common.Animators
     {
         readonly List<UniTask> running = new(200);
 
-        public async UniTask AnimateGroup<T,L>(IArrayish<T> group, int ms, Func<Vector3, Vector3> computeTarget, L func)
+        public async UniTask AnimateGroup<T,L>(IGroup<T> group, int ms, Func<Vector3, Vector3> computeTarget, L func)
             where L : unmanaged, ITransition
             where T : Component
         {

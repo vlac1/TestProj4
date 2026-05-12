@@ -16,7 +16,7 @@ namespace TheGame.Common
             return center / boxes.Length;//aver
         }
 
-        internal static Vector3 GroupCenter<T>(IArrayish<T> group)
+        internal static Vector3 GroupCenter<T>(IGroup<T> group)
             where T : Component
         {
             var center = Vector3.zero;

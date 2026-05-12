@@ -8,6 +8,7 @@ namespace TheGame.Storages.Pools
     public class PoolWithActives<TItem> : IStorage<TItem>
         where TItem : IId<int>
     {
+        public TItem this[int index] => _items[index];
         public ushort PoolPos { get; protected set; } // first inactive Object
         // active objects in beginning, inactive at the end
         private readonly List<TItem> _items;

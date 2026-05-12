@@ -14,11 +14,11 @@ namespace TheGame.Tweens
         protected override Vector3 ComputeTarget(Vector3 currentPos)
             => _groupCenter;
 
-        public override UniTask Execute<T>(IArrayish<T> group)
+        public override UniTask Process<T>(IGroup<T> group)
         {
             _groupCenter = Utils.GroupCenter(group);
             _groupCenter.y = _planeHeight;
-            return base.Execute(group);
+            return base.Process(group);
         }
     }
 }

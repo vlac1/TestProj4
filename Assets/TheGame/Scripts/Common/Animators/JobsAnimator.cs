@@ -38,7 +38,7 @@ namespace TheGame.Common.Animators
         }
         #endregion
 
-        public async UniTask AnimateGroup<T,L>(IArrayish<T> items, int ms, Func<Vector3, Vector3> computeTarget, L func)
+        public async UniTask AnimateGroup<T,L>(IGroup<T> items, int ms, Func<Vector3, Vector3> computeTarget, L func)
             where L : unmanaged, ITransition
             where T : Component
         {

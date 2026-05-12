@@ -18,12 +18,12 @@ namespace TheGame.Tweens
             return currentPos + offset;
         }
 
-        public override UniTask Execute<T>(IArrayish<T> group)
+        public override UniTask Process<T>(IGroup<T> group)
         {
             _groupCenter = Utils.GroupCenter(group);
             // on plane above (if box Falls out of map, center is below map (or clear box))
             _groupCenter.y = _planeHeight;
-            return base.Execute(group);
+            return base.Process(group);
         }
     }
 }

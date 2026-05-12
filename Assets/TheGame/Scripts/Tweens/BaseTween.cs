@@ -30,7 +30,7 @@ namespace TheGame.Tweens
         protected virtual Vector3 ComputeTarget(Vector3 currentPos)
             => currentPos;
 
-        public virtual UniTask Execute<T>(IArrayish<T> group) where T : Component
+        public virtual UniTask Process<T>(IGroup<T> group) where T : Component
             => _animator.Wrappee.AnimateGroup(group, _executeTimeMs, _ComputeTargetFunc, _transition);
     }
 }

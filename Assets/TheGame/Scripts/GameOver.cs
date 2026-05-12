@@ -32,9 +32,9 @@ namespace TheGame
                 _lose.Invoke();
         }
 
-        public UniTask Execute<T>(IArrayish<T> group) where T : Component
+        public UniTask Process<T>(IGroup<T> group) where T : Component
         {
-            var boxes = (IArrayish<BoxEntity>)group;
+            var boxes = (IGroup<BoxEntity>)group;
 
             var sumOfAll = 0;// boxes.Sum(E => E.Score.Value);//small but slow
             for (var i = 0; i < boxes.Count; i++)

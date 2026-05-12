@@ -4,7 +4,7 @@ using Cysharp.Threading.Tasks;
 
 namespace TheGame
 {
-    internal class SimpleEntityGroupProvider : MonoBehaviour, ITween, IArrayish<BoxEntity>
+    internal class SimpleEntityGroupProvider : MonoBehaviour, ITween, IGroup<BoxEntity>
     {
         public BoxEntity this[int index] => _entities[index];
 
@@ -18,7 +18,7 @@ namespace TheGame
         }
 
         // put this first in list of Tweens, this used as init
-        public UniTask Execute<T>(IArrayish<T> items) where T : Component
+        public UniTask Process<T>(IGroup<T> items) where T : Component
         {
             // TODO or use pool active list
             _entities = FindObjectsByType<BoxEntity>(FindObjectsSortMode.None);
@@ -27,6 +27,8 @@ namespace TheGame
                 box.Rigidbody.isKinematic = true;
                 box.Rigidbody.detectCollisions = false;
             }
+            //or use
+            //Physics.OverlapSphereNonAlloc();
             return UniTask.CompletedTask;
         }
     }

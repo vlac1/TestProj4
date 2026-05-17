@@ -7,7 +7,7 @@ using TheGame.Interfaces;
 
 namespace TheGame.Tweens
 {
-    internal class SpawnMerged : MonoBehaviour, ITween
+    internal class SpawnMerged : MonoBehaviour, IGroupProc
     {
         [SerializeField] private float _planeHeight = 3f;
         [SerializeField] private ParticleSystem _particles;

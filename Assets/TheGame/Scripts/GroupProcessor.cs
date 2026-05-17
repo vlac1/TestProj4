@@ -7,7 +7,7 @@ namespace TheGame
     internal class GroupProcessor : MonoBehaviour
     {
         [SerializeField] private Wrap<IGroup<BoxEntity>> _group;
-        [SerializeField] private Wrap<ITween> _tween;
+        [SerializeField] private Wrap<IGroupProc> _tween;
 
         public async void ProcessGroup()//from UI
         {

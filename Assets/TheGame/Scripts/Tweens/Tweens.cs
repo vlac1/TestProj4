@@ -5,9 +5,9 @@ using TheGame.Common;
 
 namespace TheGame.Tweens
 {
-    internal class Tweens : MonoBehaviour, ITween// arr dec
+    internal class Tweens : MonoBehaviour, IGroupProc// arr dec
     {
-        [SerializeField] private Wrap<ITween>[] _tweens;
+        [SerializeField] private Wrap<IGroupProc>[] _tweens;
 
         public async UniTask Process<T>(IGroup<T> group) where T : Component
         {

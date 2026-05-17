@@ -6,11 +6,11 @@ using TheGame.Common;
 
 namespace TheGame
 {
-    internal class ButtonStater : MonoBehaviour, ITween
+    internal class ButtonStater : MonoBehaviour, IGroupProc
     {
         [SerializeField] private bool _stateBefore;
         [SerializeField] private Button _mergeButton;
-        [SerializeField] private Wrap<ITween> _tween;
+        [SerializeField] private Wrap<IGroupProc> _tween;
 
         public async UniTask Process<T>(IGroup<T> group) where T : Component
         {

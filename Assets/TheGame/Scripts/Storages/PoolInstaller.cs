@@ -1,31 +1,32 @@
 using UnityEngine;
 using Zenject;
-using TheGame.Common;
 using TheGame.Interfaces;
 
 namespace TheGame.Storages.Pools
 {
-    internal class PoolGOStorage : MonoInstaller
+    internal abstract class PoolInstaller<P,I> : MonoInstaller
+        where P : IStorage<I>, IPrewarm
     {
         [SerializeField] private int _preWarm;
-        [SerializeField] private Wrap<IStorage<GameObject>> _simplerStorage;
         [SerializeField] private GameObject _prefab;
 
-        private QueuePool<GameObject> _pool;
+        protected P _pool;
+        protected abstract P Factory();
 
         public override void InstallBindings()
         {
-            //todo exec sequence
-            _pool = new QueuePool<GameObject>(Factrory);//, _preWarm
+            //todo exec sequence, cant use prewarm here as Container in FactroryItem not ready
+            // set to 0 here, moved to Awake
+            _pool = Factory();
+            //_pool = new QueuePool<GameObject>(FactroryItem);//, _preWarm
 
-            Container.Bind<IStorage<GameObject>>()
+            Container.Bind<IStorage<I>>()
                 .WithId("Pool").FromInstance(_pool).AsTransient();
         }
 
-        private GameObject Factrory()
+        protected virtual GameObject FactroryPrefab()
         {
             var newItem = Container.InstantiatePrefab(_prefab);
-            //var newItem = _simplerStorage.Wrappee.Request();
             //newItem.GetComponent<BoxEntity>();
             newItem.SetActive(false);
             return newItem;

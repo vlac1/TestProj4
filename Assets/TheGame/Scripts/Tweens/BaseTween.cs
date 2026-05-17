@@ -10,7 +10,7 @@ using TheGame.Common.Animators;
 
 namespace TheGame.Tweens
 {
-    internal class BaseTween : MonoBehaviour, ITween
+    internal class BaseTween : MonoBehaviour, IGroupProc
     {
         [SerializeField] private Wrap<IAnimator> _animator;//or each can have its own
         [SerializeField] private int _executeTimeMs = 500;

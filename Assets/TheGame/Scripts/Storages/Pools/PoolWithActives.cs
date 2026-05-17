@@ -5,7 +5,7 @@ using TheGame.Interfaces;
 namespace TheGame.Storages.Pools
 {
     // TODO tests
-    public class PoolWithActives<TItem> : IStorage<TItem>
+    public class PoolWithActives<TItem> : IStorage<TItem>, IPrewarm
         where TItem : IId<int>
     {
         public TItem this[int index] => _items[index];
@@ -14,11 +14,16 @@ namespace TheGame.Storages.Pools
         private readonly List<TItem> _items;
         private readonly Func<TItem> _factory;
 
-        public PoolWithActives(int initialCapacity, Func<TItem> factory)// PreWarm
+        public PoolWithActives(Func<TItem> factory, int initialCapacity = 0)// PreWarm
         {
             _factory = factory;
             _items = new(initialCapacity);
-            for (var i = 0; i < initialCapacity; i++)
+            Prewarm(initialCapacity);
+        }
+
+        public void Prewarm(int countNew)
+        {
+            for (var i = 0; i < countNew; i++)
                 _items.Add(_factory());
         }
 
@@ -50,6 +55,11 @@ namespace TheGame.Storages.Pools
             {
                 yield return _items[i];
             }
+        }
+
+        public void SetPos0()
+        {
+            PoolPos = 0;
         }
     }
 }

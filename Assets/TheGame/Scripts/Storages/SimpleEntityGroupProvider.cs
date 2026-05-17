@@ -4,7 +4,7 @@ using Cysharp.Threading.Tasks;
 
 namespace TheGame
 {
-    internal class SimpleEntityGroupProvider : MonoBehaviour, ITween, IGroup<BoxEntity>
+    internal class SimpleEntityGroupProvider : MonoBehaviour, IGroupProc, IGroup<BoxEntity>
     {
         public BoxEntity this[int index] => _entities[index];
 

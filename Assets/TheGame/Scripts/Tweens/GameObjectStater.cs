@@ -5,11 +5,11 @@ using TheGame.Common;
 
 namespace TheGame
 {
-    internal class GameObjectStater : MonoBehaviour, ITween
+    internal class GameObjectStater : MonoBehaviour, IGroupProc
     {
         [SerializeField] private bool _stateBefore;
         [SerializeField] private GameObject _gameObject;
-        [SerializeField] private Wrap<ITween> _tween;
+        [SerializeField] private Wrap<IGroupProc> _tween;
 
         public async UniTask Process<T>(IGroup<T> group) where T : Component
         {

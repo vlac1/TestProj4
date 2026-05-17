@@ -7,7 +7,7 @@ using Cysharp.Threading.Tasks;
 namespace TheGame
 {
     // TODO limited auto merge attempts
-    internal class GameOver : MonoBehaviour, ITween
+    internal class GameOver : MonoBehaviour, IGroupProc
     {
         [SerializeField] private int _minScore;
         [SerializeField] private int _maxScore;

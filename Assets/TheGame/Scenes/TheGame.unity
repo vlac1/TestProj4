@@ -7481,9 +7481,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _chances:
-  - <Number>k__BackingField: 2
+  - <Thing>k__BackingField: 2
     <Percent>k__BackingField: 75
-  - <Number>k__BackingField: 4
+  - <Thing>k__BackingField: 4
     <Percent>k__BackingField: 25
 --- !u!114 &1463996425
 MonoBehaviour:

@@ -15,11 +15,11 @@ namespace TheGame
 
         public int Count => _pool.PoolPos;
 
-        protected override PoolWithActives<BoxEntity> Factory()
+        protected override PoolWithActives<BoxEntity> PoolFactory()
             => new(FactroryItem);
 
         protected BoxEntity FactroryItem()
-            => FactroryPrefab().GetComponent<BoxEntity>();
+            => PrefabFactrory().GetComponent<BoxEntity>();
 
         public UniTask Process<T>(IGroup<T> group) where T : Component
         {

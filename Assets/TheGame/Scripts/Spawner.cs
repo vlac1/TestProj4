@@ -36,7 +36,7 @@ namespace TheGame
             _current = _boxStorage.Request().transform;
             _current.position = spawnPos;
 
-            var val = _randNumber.GetNumber();
+            var val = _randNumber.GetThing();
             var boxVal = _current.GetComponent<IValue<int>>();
             boxVal.Value = val;
 

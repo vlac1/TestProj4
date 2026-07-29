@@ -4,11 +4,13 @@ using TheGame.Common;
 
 namespace TheGame.TextSetters
 {
-    internal class TextSetters : MonoBehaviour, ISetText//arr dec
+    internal class TextSetters : MonoBehaviour, ISetText//SComposite
     {
         [SerializeField] private Wrap<ISetText>[] _textSetters;
 
-        public void SetVal(int val)//OR int to string conv
+
+        //IntValToSetText
+        public void SetVal(int val)//OR int to string SAdapter
         {
             SetText(val.ToString());
         }

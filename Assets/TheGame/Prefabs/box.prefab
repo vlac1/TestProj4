@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9051052244939241641}
+  - component: {fileID: 7146589890772044079}
   - component: {fileID: 3564280645114003425}
   m_Layer: 0
   m_Name: texts
@@ -38,6 +39,20 @@ Transform:
   m_Father: {fileID: 7549933999110128520}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7146589890772044079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1282408974182882404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ad0384a682096447afed3140956e7da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _adaptee:
+    _wrappee: {fileID: 3564280645114003425}
 --- !u!114 &3564280645114003425
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1327,8 +1342,8 @@ GameObject:
   - component: {fileID: 4093891277224024705}
   - component: {fileID: 5663544258994111179}
   - component: {fileID: 6222170812670755877}
-  - component: {fileID: 3572808913208973334}
   - component: {fileID: 968276281963138495}
+  - component: {fileID: 638224847468397083}
   m_Layer: 0
   m_Name: box
   m_TagString: Untagged
@@ -1384,7 +1399,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _boxVal:
-    _wrappee: {fileID: 3572808913208973334}
+    _wrappee: {fileID: 638224847468397083}
   <Rigidbody>k__BackingField: {fileID: 4093891277224024705}
 --- !u!114 &6222170812670755877
 MonoBehaviour:
@@ -1400,48 +1415,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _minImpulse: 1.7
   _boxVal:
-    _wrappee: {fileID: 3572808913208973334}
---- !u!114 &3572808913208973334
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9180907472906666973}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a6e5a91d26aada4dbc6684888cf08bd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _observedVal:
-    _wrappee: {fileID: 3577594037989382622}
-  _onValChanged:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 968276281963138495}
-        m_TargetAssemblyTypeName: TheGame.ColorChanger, Assembly-CSharp
-        m_MethodName: ChangeColor
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 3564280645114003425}
-        m_TargetAssemblyTypeName: TheGame.TextSetters.TextSetters, Assembly-CSharp
-        m_MethodName: SetVal
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+    _wrappee: {fileID: 638224847468397083}
 --- !u!114 &968276281963138495
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1455,13 +1429,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _renderer: {fileID: 4733490135885455710}
-  _colors:
-  - {r: 0.7568628, g: 0.36078432, b: 0.4156863, a: 1}
-  - {r: 0.6745098, g: 0.29803923, b: 0.09019608, a: 1}
-  - {r: 0.6431373, g: 0.5921569, b: 0.23529413, a: 1}
-  - {r: 0.61960787, g: 0.9921569, b: 0.53333336, a: 1}
-  - {r: 0.30980393, g: 0.5764706, b: 0.4156863, a: 1}
-  - {r: 0, g: 0, b: 1, a: 1}
+--- !u!114 &638224847468397083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9180907472906666973}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba2238ec5cad1524fb05807da5cca464, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _valGet:
+    _wrappee: {fileID: 3577594037989382622}
+  _valSet:
+    _wrappee: {fileID: 6465752057193002304}
 --- !u!1 &9222305540103541365
 GameObject:
   m_ObjectHideFlags: 0
@@ -1471,6 +1454,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1981070052089444858}
+  - component: {fileID: 6465752057193002304}
+  - component: {fileID: 9093733438363853114}
+  - component: {fileID: 4267667041319378345}
   - component: {fileID: 3577594037989382622}
   m_Layer: 0
   m_Name: score
@@ -1494,6 +1480,57 @@ Transform:
   m_Father: {fileID: 7549933999110128520}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6465752057193002304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9222305540103541365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a97e03073caacfe44b37452874701321, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _setters:
+  - _wrappee: {fileID: 3577594037989382622}
+  - _wrappee: {fileID: 9093733438363853114}
+  - _wrappee: {fileID: 4267667041319378345}
+--- !u!114 &9093733438363853114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9222305540103541365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a398da3800ecc9d45a87d272d2a8637d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _adaptee:
+    _wrappee: {fileID: 7146589890772044079}
+--- !u!114 &4267667041319378345
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9222305540103541365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 838062f928228234980fab68d18ba6f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _adaptee:
+    _wrappee: {fileID: 968276281963138495}
+  _colors:
+  - {r: 0.7568628, g: 0.36078432, b: 0.4156863, a: 1}
+  - {r: 0.6745098, g: 0.29803923, b: 0.09019608, a: 1}
+  - {r: 0.6431373, g: 0.5921569, b: 0.23529413, a: 1}
+  - {r: 0.61960787, g: 0.9921569, b: 0.53333336, a: 1}
+  - {r: 0.30980393, g: 0.5764706, b: 0.4156863, a: 1}
+  - {r: 0, g: 0, b: 1, a: 1}
 --- !u!114 &3577594037989382622
 MonoBehaviour:
   m_ObjectHideFlags: 0

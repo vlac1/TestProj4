@@ -1,9 +1,12 @@
 
 namespace TheGame.Interfaces
 {
+    internal interface IGetValue<out T> { T Value { get; } }
+    internal interface ISetValue<in T> { T Value { set; } }
+
     // C (ECS kind)
-    internal interface IValue<T>
+    internal interface IValue<T> : IGetValue<T>, ISetValue<T>
     {
-        T Value { get; set; }
+        new T Value { get; set; }
     }
 }
